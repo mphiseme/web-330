@@ -1,0 +1,71 @@
+/**
+    Title: site.css
+    Author: Manel Phiseme
+    Date: 5/29/22
+    Description: Global stylesheet
+ */
+
+/**
+    Styles added per the instructions in Assign_1
+ */
+#container {
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+#icon-text {
+    padding-left: 10px;
+}
+.pull-right {
+    float: right;
+}
+#icon-mode:hover {
+    cursor: pointer;
+}
+/**
+    Styles added per the instructions in the Web 330 HTML, CSS, and JavaScript Requirements document;
+    Exhibit D.
+ */
+ .assign-container {
+    padding: 10px;
+}
+
+.assign-content {
+    width: 600px;
+    margin: 3% auto 0;
+}
+
+.assign-results-text {
+    text-align: center;
+    font-size: 28px;
+}
+/**
+    Styles added per the instructions in the Web 330 HTML, CSS, and JavaScript Requirements document;
+ */
+.full-width {
+    width: 100%;
+}
+.app-header {
+    background-color: white;
+    text-align: center;
+    font-size: 28px;
+    color: black;   
+    border:none; 
+}
+.form {
+    display:inline-grid;
+    grid-template-columns: auto;
+}
+.form-field {
+    padding: 20px;
+}
+a .return-home {
+    color: #4F3674;
+    text-decoration:none;    
+}
+.return-home:hover {
+    color: #D6A800;
+}
+a .return-home:visited {
+    color: #3C275A;
+}
