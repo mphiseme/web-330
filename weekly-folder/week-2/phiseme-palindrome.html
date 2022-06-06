@@ -1,0 +1,147 @@
+<!--
+    Title: theme.html
+    Author: Manel Phiseme
+    Date: 6/5/2022
+    Description: The below codes demonstrate how to take user input verify if it's palindrome
+-->
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>Welcome to the Palindrome App!</title>
+        <link href="../../site.css" type="text/css" rel="stylesheet">
+        <link href="../../theme.css" type="text/css" rel="stylesheet"> 
+        <script src="../../theme.js"></script> 
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">      
+    </head>
+    <body>        
+        <div class="assign-container">
+            <h1 class="app-header">Welcome to the Palindrome App!</h1>
+
+            <div class="assign-content">
+                <div class="card">
+                    <div class="card-title">Palindrome Checker</div>
+                    <div class="card-content">
+                        <div class="form">                   
+                            <div class="form-field">
+                                <label  for="txtPhrase">Phrase value:</label>
+                                <input id="txtPhrase" class="input" name="sequence">
+
+                                <div class="form-field">
+                                    <button type="submit" class="btn btn-primary full-width" id="btnCheckPhrase">Check Phrase</button>
+                                </div>
+                            </div> 
+                        </div> 
+                    </div>               
+                </div>
+                <a href="../../index.html">Return</a> 
+            </div>            
+        </div>                             
+                   
+     <!--Below is javaScript code-->
+<script>
+   /**
+    * Set the default theme to light if one has not been set in the browsers localStorage
+    */
+   setDefaultTheme();
+     
+    /**
+     * Set the HTML body to the user's selected theme. If one has not been selected, 
+     * set the theme to light-theme
+    */
+    setSelectedTheme();
+
+    /**
+     * This function get the current date and set it to us 00/00/0000 
+     * Format
+     */
+    function getTodaysDate(date) 
+    {
+        date = new Date();
+        let dFormat = new Intl.DateTimeFormat("en-us");       
+       let dateNoTime = dFormat.format(date);        
+        return dateNoTime;
+    }
+    /**
+     * This function get the length of a string 
+     * And return it.
+     */
+    function getLength(length)
+    {
+        let stringLength = length.length;
+        return stringLength;
+
+    }
+    /**
+     * This function take the user's input split, reverse, 
+     * and join the characters together to form a new word.
+     */ 
+    function reverse(inputValue)
+    {       
+        const stringArray = inputValue.split("");
+        const revString = stringArray.reverse();
+        const value = revString.join('');        
+        return value;       
+    }
+    /**
+     * This function test to see if verse word is palindrome.
+     * If the word is palindrome the variable truOFalse  is 
+     * assign a true value if not, the variable is assign false.
+     */   
+    function isPalindrome(value2)
+    {
+        let revValue = reverse(value2);
+        let truOFalse 
+        if (revValue == value2){
+            truOFalse = true;
+        }
+        else{
+            truOFalse = false;
+        }
+        return truOFalse;
+    }
+    /**
+     * This onclick function active when user click on the html button
+     * Once the button is clicked on user's input is taken
+     * date, length, reverse functions are called.
+     */ 
+    document.getElementById("btnCheckPhrase").onclick = function()
+    {
+        let txtPhrase = document.getElementById("txtPhrase").value;
+        let assignResults = document.getElementById("assign-results");
+        let today = getTodaysDate();
+        let len = getLength(txtPhrase);
+        let reversedPhrase = reverse(txtPhrase);
+        let header =  `Date: ${today} 
+        Original Prase: ${txtPhrase}
+        Reverse Phrase: ${reversedPhrase}
+        Phrase Length: ${len}`;
+        document.getElementById("assign-results-header").innerText = header;
+        //if else statement verify if input string is palindrome
+        //if so then the input and the statement "is a palindrome"
+        //is assign to the html div "assign-results"
+        //
+        //Otherwise the input value and the statement "is a palindrome"
+        //is assign to the html div "assign-results"
+        if (isPalindrome(txtPhrase.toLowerCase())==true){
+            assignResults.innerHTML = `${txtPhrase} is a palindrome`;
+        }
+        else {
+            assignResults.innerHTML = `${txtPhrase} is not a palindrome!`;
+        }     
+    }             
+</script> 
+        <div class="assign-container">
+            <div class="assign-content">
+                <div class="card" >
+                    <div class="form-field">
+                        <div class="card-title">Palindrome Results</div> 
+                        <div class="form">
+                            <div id="assign-results-header" class="card-content"></div>                            
+                        </div>
+                        <div id="assign-results" class="card-content assign-results-text"></div> 
+                        </div>
+                    </div>
+                </div>
+            </div>        
+    </body>
+</html>

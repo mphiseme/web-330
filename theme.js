@@ -17,8 +17,8 @@
      const iconText = localStorage.getItem("iconText") || "Light Mode";
  
      document.body.classList.value = theme;
-     document.getElementById("icon-mode").classList.add(iconMode);
-     document.getElementById("icon-text").innerHTML = iconText;
+    // document.getElementById("icon-mode").classList.add(iconMode);
+    // document.getElementById("icon-text").innerHTML = iconText;
  }
  
  /**

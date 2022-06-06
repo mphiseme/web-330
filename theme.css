@@ -111,7 +111,7 @@ Keeping both here until we reach the assignment that will need them to find out*
 .card-title {
     text-align: center;
     font-size: 2em;
-    color: var(--card-title-color);
+    color: var(--card-title-color);    
     font-weight: 400;
 }
 .card-content {
@@ -126,7 +126,7 @@ Keeping both here until we reach the assignment that will need them to find out*
     font-size: 16px;
     margin:4px 2px;
     cursor:pointer;
-    padding: 15px 32px;
+    padding: 12px 100px;
     color:black;
 }
 .btn-primary {
@@ -137,8 +137,9 @@ Keeping both here until we reach the assignment that will need them to find out*
     background-color: var(--btn-background-color);
     color: var(--btn-hover-color);
 }
+
 .input {
-    padding: 12px 20px;
+    padding: 7px 49px;
     margin: 8px 0;
     display:inline-block;
     border: 1px solid var(--input-border-color);

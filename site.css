@@ -46,10 +46,8 @@
     width: 100%;
 }
 .app-header {
-    background-color: white;
     text-align: center;
-    font-size: 28px;
-    color: black;   
+    font-size: 28px;     
     border:none; 
 }
 .form {
