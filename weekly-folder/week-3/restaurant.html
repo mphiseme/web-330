@@ -1,0 +1,195 @@
+<!--
+    Title: restaurant.html
+    Author: Manel Phiseme
+    Date: 6/12/2022
+    Description: The below codes demonstrate how to take user input verify if it's palindrome
+-->
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>Welcome to Restaurant App</title>
+        <link href="restaurant.css" type="text/css" rel="stylesheet">
+        <link href="../../site.css" type="text/css" rel="stylesheet">
+        <link href="../../theme.css" type="text/css" rel="stylesheet"> 
+        <script src="../../theme.js"></script>  
+        <script type="module">import { Bill, Beverage, Appetizer, MainCourse, Dessert } from "./index.js";</script> 
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">      
+    </head>
+    <body>        
+        <div class="assign-container">
+            <h1 class="app-header">Welcome to Restaurant App</h1>
+
+            <div class="assign-content">
+                <div class="card">
+                    <div class="card-title">Restaurant Menu</div> 
+                    
+                        <div class="form">                    
+                            <div class="form-field card2">
+                                <div class="card">
+                                    <div class="card-title">Beverages</div>
+                                    <div class="card-content" id="beverages">
+                                        <input type="checkbox" id="soda" name="soda">
+                                        <label  for="soda">Soda ($3.30)</label><br>
+                                        <input type="checkbox" id="tea" name="tea">
+                                        <label  for="tea">Sweet Tea ($3.30)</label><br>
+                                        <input type="checkbox" id="coffee" name="coffee">                                      
+                                        <label  for="coffee">Iced Coffee ($2.49)</label><br>
+                                        <input type="checkbox" id="water" name="water">                                         
+                                        <label  for="water">Bottled Water ($2.15)</label><br>
+                                        
+                                    </div>                                    
+                                </div> 
+                             </div> 
+                             <div class="form-field ">
+                                <div class="card card2">
+                                    <div class="card-title">Appetizers</div>
+                                    <div class="card-content" id="appetizer">
+                                        <input type="checkbox" id="nachos" name="nachos" > 
+                                        <label  for="nachos">Nachos ($6.60)</label><br>
+                                        <input type="checkbox" id="chips" name="chips"> 
+                                        <label  for="chips">Chips and Salsa ($5.50)</label><br>                                         
+                                        <input type="checkbox" id="pretzel" name="pretzel"> 
+                                        <label  for="pretzel">Pretzel with Cheese ($8.80)</label><br> 
+                                        <input type="checkbox" id="pickles" name="pickles">
+                                        <label  for="pickles">Fried Pickles ($8.25)</label><br>                                         
+                                    </div>                                
+                                 </div>                                
+                             </div>
+                             <div class="form-field ">
+                                <div class="card card2">
+                                    <div class="card-title">Main Courses</div>
+                                    <div class="card-content" id="main-courses">
+                                        <input type="checkbox" id="tacos" name="tacos" >
+                                        <label  for="tacos">Street Tacos ($9.70)</label><br> 
+                                        <input type="checkbox" id="wings" name="wings">                                    
+                                        <label  for="wings">Boneless Wings ($12.80)</label><br> 
+                                        <input type="checkbox" id="burger" name="burger">                                        
+                                        <label  for="burger">Cheese Burger with Fries ($12.65)</label><br> 
+                                        <input type="checkbox" id="wrap" name="wrap">
+                                        <label  for="wrap">Chicken Wrap with Salad ($9.65)</label><br> 
+                                       
+                                    </div> 
+                                </div>
+                             </div>
+                             <div class="form-field card2">
+                                <div class="card">
+                                    <div class="card-title">Desserts</div>
+                                    <div class="card-content">                                                          
+                                        <div class="form-field" id="desserts">
+                                            <input type="checkbox" id="iceCream" name="iceCream">
+                                            <label  for="iceCream">Ice Cream ($4.30)</label><br> 
+                                            <input type="checkbox" id="cake" name="cake">
+                                            <label  for="cake">Chocolate Cake ($5.40)</label><br> 
+                                            <input type="checkbox" id="pie" name="pie">                                             
+                                            <label  for="pie">Apple Pie ($3.80)</label><br>  
+                                          
+                                            <div class="form-field">
+                                                <button type="submit" class="btn btn-primary full-width" id="btnOrder" >Place order</button>
+                                            </div>
+                                        </div>                                     
+                                    </div>                                     
+                                </div>
+                             </div>
+                             
+                        </div> 
+                    </div>
+                    <a href="../../index.html">Return</a>
+                </div>       
+            </div>             
+                                      
+                  
+     <!--Below is javaScript code-->
+<script type="module" > 
+   
+
+   /**
+    * Set the default theme to light if one has not been set in the browsers localStorage
+    */
+   setDefaultTheme();   
+     
+    /**
+     * Set the HTML body to the user's selected theme. If one has not been selected, 
+     * set the theme to light-theme
+    */
+    setSelectedTheme();
+
+    /**
+     * This function get the current date and set it to us 00/00/0000 
+     * Format
+     */
+
+     /**
+      * this is an onclick function for the Html button
+      * which once triggered will get the checkbox inputs of the user and 
+      * store them in different variables.
+      */ 
+     document.getElementById("btnOrder").onclick = function(){
+        const beverageV = document.getElementById("beverages");
+        const beverageIn = beverageV.getElementsByTagName("input");
+
+        const appetizerV = document.getElementById("appetizer");
+        const appetizerIn = appetizerV.getElementsByTagName("input");
+
+        const mainCourseV = document.getElementById("main-courses");
+        const mainCourseIn = mainCourseV.getElementsByTagName("input");
+
+        const dessertsV = document.getElementById("desserts");
+        const dessertsIn = dessertsV.getElementsByTagName("input");
+
+        const newBill = new Bill();
+        
+        
+        /**
+         * The follow loops find out which checkbox is checked and take the name
+         * value of each input checkbox 
+         */ 
+        for (let beverageL of beverageIn)
+        {
+            if (beverageL.checked)
+            {
+                newBill.addBeverage(new Beverage(beverageL.name, beverageL.value))
+            }
+
+        }
+        for (let appetizerL of appetizerIn)
+        {
+            if(appetizerL.checked)
+            {
+                newBill.addAppetizer(new Appetizer(appetizerL.name, appetizerL.value));
+            }
+        }
+        for (let mainCourseL of mainCourseIn)
+        {
+            if(mainCourseL.checked)
+            {
+                newBill.addMainCourse(new MainCourse(mainCourseL.name, mainCourseL.value))
+            }
+        }
+        for (let dessertL of dessertsIn)
+        {
+            if(dessertL.checked)
+            {
+                newBill.addDessert(new Dessert(dessertL.name, dessertL.value))
+            }
+        }
+
+        document.getElementById("order-total").innerHTML = newBill.getTotal();
+
+     }
+                
+</script> 
+        <div class="assign-container">
+            <div class="assign-content">
+                <div class="card" >
+                    <div class="form-field">
+                        <div class="card-title">Order Summary</div> 
+                        <div class="form">
+                            <div id="assign-results-header" class="card-content"></div>                            
+                        </div>
+                        <div id="order-total" class="card-content assign-results-text"></div> 
+                        </div>
+                    </div>
+                </div>
+            </div>        
+    </body>
+</html>

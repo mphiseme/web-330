@@ -1,0 +1,14 @@
+/**
+ * Title: restaurant.js
+    Author: Manel Phiseme
+    Date: 6/12/2022
+    Description: this is part of the css code for 
+    Restaurant.html
+ **/
+.form {
+    content: "";
+  display: table;
+  clear: both;       
+               
+}
+
