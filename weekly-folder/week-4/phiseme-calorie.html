@@ -1,0 +1,128 @@
+<!--
+    Title: Calories.html
+    Author: Manel Phiseme
+    Date: 6/19/2022
+    Description: The below codes demonstrate how to take user's food import and populate what they import and 
+    and give the calories.
+-->
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>Welcome to the Calorie App!</title>        
+        <link href="../../site.css" type="text/css" rel="stylesheet">
+        <link href="../../theme.css" type="text/css" rel="stylesheet"> 
+        <script src="../../theme.js"></script>          
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">      
+    </head>
+    <body>        
+        <div class="assign-container">
+            <h1 class="app-header">Welcome to the Calorie App!</h1>
+
+            <div class="assign-content">
+                <div class="card">
+                    <div class="card-title">Calorie Search Form</div> 
+                        <div class="form"> 
+                             <div class="form-field card2"> 
+                                    <div class="card-content">                                                          
+                                        <div class="form-field" id="desserts">                                            
+                                            <label  for="txtFoodItem">Enter a food item:</label> 
+                                            <input type="text" id="txtFoodItem" name="cake">
+                                            <p><span id="foodList"></span></p>                                            
+                                            <div class="form-field">
+                                                <button type="submit" class="btn btn-primary full-width" id="btnSearch" >Search</button>
+                                            </div>
+                                        </div>                                     
+                                    </div> 
+                             </div>
+                        </div> 
+                    </div>
+                    <a href="../../index.html">Return</a>
+                </div>       
+            </div>             
+                                      
+                  
+     <!--Below is javaScript code-->
+<script type="module">    
+
+   /**
+    * Set the default theme to light if one has not been set in the browsers localStorage
+    */
+   setDefaultTheme();   
+
+   // Bellow code import the calorie class
+   import {CalorieConverter} from "./calorie-converter.js";
+     
+    /**
+     * Set the HTML body to the user's selected theme. If one has not been selected, 
+     * set the theme to light-theme
+    */
+    
+    /**
+     * The bellow codes take user's input assigned it to variable txtFoodItemEl
+     * create a onclick function for the application button, call the CalorieConverter function
+     * and passed user's input through it to get the calorie. 
+     * Once the calorie and user's input is figure out it place in html table.    
+    */
+      let txtFoodItemEl = document.getElementById('txtFoodItem');
+      document.getElementById("btnSearch").onclick = function(){
+        let txtFoodItem = txtFoodItemEl.value;
+        //let foods = CalorieConverter.find(txtFoodItem.toLowerCase());
+        let foods = CalorieConverter.find(txtFoodItem.toLowerCase());
+
+
+        let tableData = `
+        <table class="table">
+            <tr>
+                <th>Name<th>
+                <th>Calories<th>
+            <tr>` ;
+
+            for(let food of foods){
+              tableData+= `<tr>
+              <td>${food.name}<td>
+              <td>${food.calories}<td>
+              </tr>`;
+            }
+            document.getElementById('searchResults').innerHTML = tableData + `</table>`;
+      } 
+      
+      //Below codes create a handle for the enter key
+      document.addEventListener("keyup", event => {
+        if (event.keyCode === 13){
+            event.preventDefault();
+            document.getElementById("btnSearch").click();
+        }
+        
+      })
+      
+      //bellow codes get the data from class  CalorieConverter
+      const foodList = CalorieConverter.data;
+      
+      //The following create template literal to hold suggestion 
+      //input options for the user.
+      //the template literal is added to the div associated with id foodList
+      let foodListData =`<i> (EX:`;
+      for (let name of foodList){
+       foodListData +=name.name+ ", ";
+      }
+      document.getElementById("foodList").innerHTML= 
+      foodListData + `)</i>`;
+                
+</script> 
+        <div class="assign-container">
+            <div class="assign-content">
+                <div class="card" >
+                    <div class="form-field">
+                        <div class="card-title">Order Summary</div> 
+                        <div class="form">                            
+                            <div id="assign-results-header" class="card-content">
+                                <div id="searchResults"></div>                                
+                            </div>                            
+                        </div>
+                        <div id="order-total" class="card-content assign-results-text"></div> 
+                        </div>
+                    </div>
+                </div>
+            </div>        
+    </body>
+</html>

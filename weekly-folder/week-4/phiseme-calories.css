@@ -1,0 +1,12 @@
+/** Title: Phiseme-calories.css
+    Author: Manel Phiseme
+    Date: 6/19/2022
+    Description: file hold one of the css file for calorie.html
+    */
+
+#foodList {
+    float: right;
+    color: #df546a;
+    font-size: 12px;
+    letter-spacing:2px;    
+}

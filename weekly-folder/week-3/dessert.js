@@ -14,7 +14,7 @@ import {Product} from "./product.js";
  * which inherit the class Product
  * export key word is use to export class
  */
-export class MainCourse extends Product {
+export class Dessert extends Product {
     constructor (name, price){
         super(name, price)
     }
