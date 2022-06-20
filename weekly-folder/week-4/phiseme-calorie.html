@@ -101,12 +101,12 @@
       //The following create template literal to hold suggestion 
       //input options for the user.
       //the template literal is added to the div associated with id foodList
-      let foodListData =`<i> (EX:`;
+      let foodListData =`<i> (EX: `;
       for (let name of foodList){
        foodListData +=name.name+ ", ";
       }
       document.getElementById("foodList").innerHTML= 
-      foodListData + `)</i>`;
+      foodListData.slice(0,-2) + `)</i>`;
                 
 </script> 
         <div class="assign-container">
