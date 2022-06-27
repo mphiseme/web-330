@@ -1,0 +1,134 @@
+<!--
+    Title: Bobs-auto-rePair.html
+    Author: Manel Phiseme
+    Date: 6/26/2022
+    Description: this code is for automobile shop.
+-->
+<!DOCTYPE html>
+<html lang="us">
+    <head>
+        <title></title>
+        <link href="../../site.css" rel="stylesheet" type="text/css">
+        <link href="../../theme.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="../../theme.js"></script>
+    </head>
+    <body>
+        <div class="assign-container">
+            <h1 class="app-header">Welcome to Bob’s Automotive Repair Shop!</h1>
+            
+            <div class="assign-content">
+                <div class="card">
+                    <div class="card-title">Product Listing</div>
+                    <div class="card-content">
+                        <div class="form">                   
+                            <div class="form-field">
+                                <div id="cart-count">
+                                    <i id="" class="fa fa-shopping-cart"></i>
+                                </div>
+                               
+                                <label  for="productList">Choose a product:</label>
+                                <select id="productList" class="drop-down-menu" name="sequence">
+                                    <option value="Select">--Select--</option>
+                                    <option value="19.99">Oil Change</option>
+                                    <option value="18.44">Filter Replacement</option>
+                                    <option value="9.99">Wiper Fluid Refill</option>
+                                </select>
+                                <i id="cart-message"></i>
+
+                                <div class="form-field">
+                                    <button type="submit" class="btn btn-primary full-width" id="btnAddProduct">Add to Cart</button>
+                                </div>
+                            </div> 
+                        </div> 
+                    </div>               
+                </div>
+                <a href="../../index.html">Return</a> 
+            </div>            
+        </div>                             
+                   
+     <!--Below is javaScript code-->
+<script type="module">
+   /**
+    * Set the default theme to light if one has not been set in the browsers localStorage
+    */
+   setDefaultTheme();
+     
+    /**
+     * Set the HTML body to the user's selected theme. If one has not been selected, 
+     * set the theme to light-theme
+    */
+    setSelectedTheme();
+
+    import {Product} from "./product.js";
+    import {ShoppingCart} from "./shopping-cart.js";
+
+    let shoppingCart = new ShoppingCart();
+   /* function setCartCount(){
+        let divResult = document.getElementById("cart-count");
+        shoppingCart.count = divResult.innerHTML;
+    }*/
+   
+    function setCartCount(){
+        let divResult = document.getElementById("cart-count");
+        divResult += shoppingCart.count(); 
+    }
+    //this code call the function SetCartCount
+    setCartCount();
+    
+    //This create an onclick function for the Html buttom
+    document.getElementById("btnAddProduct").onclick = function(){
+       let productList = document.getElementById("productList"); 
+       let product = productList.options[productList.selectedIndex].text;
+       let productValue =productList.options[productList.selectedIndex].value;
+       
+       if (product!== "--Select--"){
+        shoppingCart.add(product,productValue)  
+        setCartCount()      
+        alert(`${product} was added to your shopping cart!`);            
+       }
+       
+    }
+    //this take the div productList and assigned it sellect
+    document.getElementById("productList").options.value = "select";
+
+ //This code take the div with cartIcon generate a table and go through products.
+    document.getElementById("cartIcon").onclick = function(){
+        let cartDisplayTable = `
+        <table> 
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>            
+        `;
+        for(let prdObj of shoppingCart){
+           prodOjPr += shoppingCart.add(prdObj);
+
+          let prodOjp = cartDisplayTable +`<tr>
+              <td>${prodOjPr.name}</td>
+              <td>${prodOjPr.price}`;       
+
+        }
+        //This code take the div with shoppingCart and assigned it  a table value.
+        document.getElementById("shoppingCart").innerHTML = prodOjp + `</table>`;
+    }
+
+               
+</script> 
+        <div class="assign-container">
+            <div class="assign-content">
+                <div class="card" >
+                    <div class="form-field">
+                        <div class="card-title">Shopping Cart</div> 
+                        <div class="form">
+                            <div id="assign-results-header" class="card-content"></div>                            
+                        </div>
+                        <div id="assign-results" class="card-content assign-results-text"></div> 
+                        <div id="shoppingCart" class="card-content assign-results-text"></div> 
+                        <div id="cart-component" class="card-content assign-results-text"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+    </body> 
+</html>
