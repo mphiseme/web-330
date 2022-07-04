@@ -17,7 +17,7 @@ export class RequiredField {
         this.field = field;
     }    
     validate(){
-        if (typeof this.field ==="string"){
+        if (this.field){
             return true;
         }
         else {

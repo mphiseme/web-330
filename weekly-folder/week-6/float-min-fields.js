@@ -6,7 +6,8 @@
  **/
 
 //class FloatMaxField 
-//check if a user 
+//This class check to see user's input is greater than 
+//minimum
 
 export class FloatMinField {
     constructor(name, field, min){
@@ -15,7 +16,7 @@ export class FloatMinField {
         this.min = min;
     }
     validate(){
-        if( pareFloat(this.field) > this.min){
+        if( parseFloat(this.field) > this.min){
             return true;           
         }
         else{

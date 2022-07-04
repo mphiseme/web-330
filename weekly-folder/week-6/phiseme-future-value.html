@@ -1,13 +1,20 @@
+<!--
+    Title: phiseme-future-value.html
+    Author: Manel Phiseme
+    Date: 7/3/2022
+    Description: this code is for phiseme-future-value
+-->
 <!DOCTYPE html>
     <html lang="en-us">
         <head>
             <title>Welcome to the Future Value App!</title>
+            <link href="./phiseme-future-value.css" type="text/css" rel="stylesheet">
             <link href="../../flex-layout.css" type="text/css" rel="stylesheet">
             <link href="../../theme.css" type="text/css" rel="stylesheet">
             <link href="../../site.css"  type="text/css" rel="stylesheet">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">
-            <script src="theme.js"></script>
+            <script src="../../theme.js"></script>
         </head>
         <body>
             <div class="assign-container">
@@ -21,24 +28,24 @@
                                         <div class="card-content">  
                                             <div id="errorLog" class=" row danger col-12"></div>
                                                 <div class="row">
-                                                    <div class="col-5" id="form-field">
+                                                    <div class="col-5 form-field" >
                                                         <label class="form-label" for="txtMonthlyPayment">Monthly Payment</label>
                                                     </div>
-                                                    <div class="col-7">
+                                                    <div class="col-7 form-field" >
                                                         <input id="txtMonthlyPayment" type="text" class="input">
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-5">
+                                                    <div class="col-5 form-field">
                                                         <label class="form-label" for="txtYearlyRate">Interest Rate:</label>
                                                     </div>
-                                                    <div class="col-7">
+                                                    <div class="col-7 form-field">
                                                         <input id="txtYearlyRate" type="text" class="input">
                                                     </div>
                                                     <i class="dangerz">Enter 11% as 11.1:</i>                                                    
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-5">
+                                                    <div class="col-5 form-field">
                                                         <label class="form-field">Number of Years:</label>
                                                     </div>
                                                     <div class="col-7">
@@ -58,8 +65,7 @@
                                                 </div>                               
                                                 <div class="form-field">
                                                     <button type="submit" class="btn btn-primary full-width" id="btnCalculate">Calculate</button>
-                                                </div>
-                                                                                 
+                                                </div>                                                                                
                                         </div> 
                                  </div>
                             </div> 
@@ -77,35 +83,49 @@
         */
        setDefaultTheme();   
     
-       // Bellow code import the calorie class
-       import {FinanceCalculator} from "./finance-calculator.js";
-       import {Validator} from "./validator.js";
-
+       // Bellow code import the calorie class       
+      import {FinanceCalculator} from "./finance-calculator.js";
+      import {Validator} from "./validator.js";
+      
+      
        document.getElementById("today").innerHTML = new Date().toLocaleDateString("en-US");
-       document.getElementById("btnCalculator").onclick = function(){
+      
+       //This onclick function for button
+       //Which include user's input
+       document.getElementById("btnCalculate").onclick = function(){
+       
         let monthlyPayment = document.getElementById("txtMonthlyPayment").value;
-        let rate = document.getElementById(txtYearlyRate).value;
-        let years = document.getElementById(listNumOfYears).select;
-        let errorLogEl = document.getElementById(errorLog);
+        let rate = document.getElementById("txtYearlyRate").value;
+        let years = document.getElementById("listNumOfYears").value;
+        let errorLogEl = document.getElementById("errorLog");
         
+        // Create a new instance Validator object and assigned to monthlyPayment variable
         let monthlyPaymentValidator = new Validator("Monthly Payment", monthlyPayment);
+       
         monthlyPaymentValidator.addRequiredField();
+        monthlyPaymentValidator.addRequiredFloatField();
         monthlyPaymentValidator.addFloatMinField(100); 
-        
+
+        // Create a new instance Validator object and assigned to rateValidator variable
         let rateValidator = new Validator("Interest Rate", txtYearlyRate);
+
         rateValidator.addRequiredField();
         rateValidator.addRequiredFloatField();
         rateValidator.addFloatMaxField(100);
 
         let errorLog = [];
         
-        if (!monthlyValidator.validate()){
-            for (let msg of monthlyValidator.messages)
+        //Following codes check to see if user's monthly payment        
+        //is valid, if not err message are push to the errolog array
+        if (!monthlyPaymentValidator.validate()){
+            for (let msg of monthlyPaymentValidator.messages)
             {
                 errorLog.push(msg);
             }
         }
 
+        //Following codes check to see if user's rate Validator        
+        //is valid, if not err message are push to the errolog array
         if (!rateValidator.validate()){
             for (let msg of rateValidator.messages)
             {
@@ -114,9 +134,9 @@
         }
         if (monthlyPaymentValidator.validate() && rateValidator.validate()) {
             errorLogEl.innerHTML = "";
-            let futureValue = FinanceCalculator.calculateFutureValue(monthlyRate,rate,years);
+            let futureValue = FinanceCalculator.calculateFutureValue(monthlyPayment,rate,years);
 
-            document.getElementById("futureValue").innerHTML = futureValue;
+            document.getElementById("futureValue").innerHTML ="The future value is $" + futureValue;
 
         }
         else {
@@ -129,15 +149,8 @@
                 errorLogEl.innerHTML = errorLogMessage + `<ul>`;
         }
 
-
-
-       }
-         
-        /**
-         * Set the HTML body to the user's selected theme. If one has not been selected, 
-         * set the theme to light-theme
-        */  
-
+       }         
+        
     </script> 
             <div class="assign-container">
                 <div class="assign-content">
@@ -145,8 +158,8 @@
                         <div class="form-field">
                             <div class="card-title">Calculation as of <span id="today"></span></div> 
                             <div class="form">                            
-                                <div id="assign-results-header" class="card-content">
-                                    <div id="futureValue" class="searchResults"></div>                                
+                                <div >
+                                    <div id="futureValue" class="searchResults card-content assign-results-text"></div>                                
                                 </div>                            
                             </div>
                             <div id="order-total" class="card-content assign-results-text"></div> 

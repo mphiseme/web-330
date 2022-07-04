@@ -6,7 +6,8 @@
  **/
 
 //class FloatMaxField 
-//check if a user 
+//This class check to see if user's input is less than the max
+//value
 
 export class FloatMaxField {
     constructor(name, field, max){
@@ -15,7 +16,7 @@ export class FloatMaxField {
         this.max=max;
     }
     validate(){
-        if(typeof this.field == "number" < this.max){
+        if(parseFloat(this.field) < this.max){
             return true;           
         }
         else{

@@ -6,12 +6,12 @@
  **/
 
 //class RequiredField 
-//this class validate whether a class is 
+//this class validate if user's input are float value
 
 export class FloatField {
     constructor(name, field){
-        this.name=name;
-        this.field=field;
+        this.name = name;
+        this.field = field;
     }
     valid(){
         if(isNaN(this.field)){
@@ -22,7 +22,7 @@ export class FloatField {
         }
     }
     getMessage(){
-        return `${this.name} must be a float value. You entered ${field}`;
+        return `${this.name} must be a float value. You entered ${this.field}`;
     }
     
 }

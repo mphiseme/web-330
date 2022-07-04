@@ -7,7 +7,7 @@
 
 //class RequiredField 
 //Calculate future value and have it in U.S currency
-class FinanceCalculator {
+export class FinanceCalculator {
     static MONTHS_IN_YEAR = 12;
     static calculateFutureValue(monthlyPayment, rate, years){
         let month = years * this.MONTHS_IN_YEAR;
@@ -22,6 +22,6 @@ class FinanceCalculator {
             currency: "USD"
 
         } );
-        return currencyFormatter(field)
+        return currencyFormatter.format(field)
     }
 }
