@@ -30,21 +30,20 @@ export class Bill {
     getTotal(){
         let total = 0;
 
-        let beverageTotal = this._beverages.forEach(function(beverage){
+         this._beverages.forEach(function(beverage){
             total += parseFloat(beverage.price);
         })
-        let appetizersTotal = this._appetizers.forEach(function(appetizer){
+         this._appetizers.forEach(function(appetizer){
             total += parseFloat(appetizer.price);
         })
-        let mainCourseTotal = this._mainCourses.forEach(function(mainCourse){
+         this._mainCourses.forEach(function(mainCourse){
             total += parseFloat(mainCourse.price);
         })
-        let dessertsTotal = this._desserts.forEach(function(dessert){
+         this._desserts.forEach(function(dessert){
             total += parseFloat(dessert.price)
         })
 
-        let totalFinal =beverageTotal + appetizersTotal + mainCourseTotal + dessertsTotal;
-        return totalFinal;        
+        return total.toFixed(2); 
     }
 }
 

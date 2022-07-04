@@ -5,10 +5,9 @@
     Description: this is part of the css code for 
     Restaurant.html
  **/
-.form {
-    content: "";
-  display: table;
-  clear: both;       
-               
+.form {  
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 25px;
 }
 

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+    <html lang="en-us">
+        <head>
+            <link href="../../flex-layout.css" type="text/css" rel="stylesheet">
+            <link href="../../theme.css" type="text/css" rel="stylesheet">
+            <link href="../../site.css"  type="text/css" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">
+            <script src="theme.js"></script>
+        </head>
+        <body>
+            <div class="assign-container">
+                <h1 class="app-header">Welcome to the Future Value App!</h1>
+    
+                <div class="assign-content">
+                    <div class="card">
+                        <div class="card-title">Future Value Calculator</div> 
+                            <div class="form"> 
+                                 <div class="form-field card2"> 
+                                        <div class="card-content">  
+                                            <div id="errorLog" class=" row danger col-12"></div>
+                                                <div class="row">
+                                                    <div class="col-5" id="form-field">
+                                                        <label class="form-label" for="txtMonthlyPayment">Monthly Payment</label>
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <input id="txtMonthlyPayment" typ="text" class="input">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-5">
+                                                        <label class="form-label" for="txtYearlyRate">Interest Rate:</label>
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <input id="txtYearlyRate" typ="text" class="input">
+                                                    </div>
+                                                    <i class="dangerz">Enter 11% as 11.1:</i>                                                    
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-5">
+                                                        <label class="form-field">Number of Years:</label>
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <select id="listNumOfYears" typ="select" class="drop-down-menu">
+                                                            <options value="1">1</options>
+                                                            <options value="2">2</options>
+                                                            <options value="3">3</options>
+                                                            <options value="4">4</options>
+                                                            <options value="5">5</options>
+                                                            <options value="6">6</options>
+                                                            <options value="7">7</options>
+                                                            <options value="8">8</options>
+                                                            <options value="9">9</options>
+                                                            <options value="10">10</options>                                                            
+                                                        </select>
+                                                    </div>
+                                                </div>                               
+                                                <div class="form-field">
+                                                    <button type="submit" class="btn btn-primary full-width" id="btnCalculate">Calculate</button>
+                                                </div>
+                                                                                 
+                                        </div> 
+                                 </div>
+                            </div> 
+                        </div>
+                        <a href="../../index.html">Return</a>
+                    </div>       
+                </div>             
+                                          
+                      
+         <!--Below is javaScript code-->
+    <script type="module">    
+    
+       /**
+        * Set the default theme to light if one has not been set in the browsers localStorage
+        */
+       setDefaultTheme();   
+    
+       // Bellow code import the calorie class
+       import {FinanceCalculator} from "./finance-calculator.js";
+       import {Validator} from "./validator.js";
+
+       document.getElementById("today").innerHTML = new Date().toLocaleDateString("en-US");
+       document.getElementById("btnCalculator").onclick = function(){
+        let monthlyPayment = document.getElementById("txtMonthlyPayment").value;
+        let rate = document.getElementById(txtYearlyRate).value;
+        let years = document.getElementById(listNumOfYears).select;
+        let errorLogEl = document.getElementById(errorLog);
+        
+        let monthlyPaymentValidator = new Validator("Monthly Payment", monthlyPayment);
+        monthlyPaymentValidator.addRequiredField();
+        monthlyPaymentValidator.addFloatMinField(100); 
+        
+        let rateValidator = new Validator("Interest Rate", txtYearlyRate);
+        rateValidator.addRequiredField();
+        rateValidator.addRequiredFloatField();
+        rateValidator.addFloatMaxField(100);
+
+        let errorLog = [];
+        
+        if (!monthlyValidator.validate()){
+            for (let msg of monthlyValidator.messages)
+            {
+                errorLog.push(msg);
+            }
+        }
+
+        if (!rateValidator.validate()){
+            for (let msg of rateValidator.messages)
+            {
+                errorLog.push(msg);
+            }
+        }
+        if (monthlyPaymentValidator.validate() && rateValidator.validate()) {
+            errorLogEl.innerHTML = "";
+            let futureValue = FinanceCalculator.calculateFutureValue(monthlyRate,rate,years);
+
+            document.getElementById("futureValue").innerHTML = futureValue;
+
+        }
+        else {
+            errorLogEl.innerHTML = "";
+            let errorLogMessage = `<ul>`;
+                for (let error of errorLog){
+                    errorLogMessage += `
+                    <li>${error}<li>`
+                }
+                errorLogEl.innerHTML = errorLogMessage + `<ul>`;
+        }
+
+
+
+       }
+         
+        /**
+         * Set the HTML body to the user's selected theme. If one has not been selected, 
+         * set the theme to light-theme
+        */  
+
+    </script> 
+            <div class="assign-container">
+                <div class="assign-content">
+                    <div class="card" >
+                        <div class="form-field">
+                            <div class="card-title">Calculation as of <span id="today"></span></div> 
+                            <div class="form">                            
+                                <div id="assign-results-header" class="card-content">
+                                    <div id="futureValue" class="searchResults"></div>                                
+                                </div>                            
+                            </div>
+                            <div id="order-total" class="card-content assign-results-text"></div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>        
+        </body>        
+    </html>

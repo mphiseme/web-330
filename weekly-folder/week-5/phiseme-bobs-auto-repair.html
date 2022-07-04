@@ -64,15 +64,12 @@
     import {ShoppingCart} from "./shopping-cart.js";
 
     let shoppingCart = new ShoppingCart();
-   /* function setCartCount(){
-        let divResult = document.getElementById("cart-count");
-        shoppingCart.count = divResult.innerHTML;
-    }*/
-   
     function setCartCount(){
         let divResult = document.getElementById("cart-count");
-        divResult += shoppingCart.count(); 
-    }
+       //shoppingCart.count = divResult.innerHTML;
+        divResult.innerHTML = shoppingCart.count();
+    }   
+   
     //this code call the function SetCartCount
     setCartCount();
     
@@ -93,24 +90,23 @@
     document.getElementById("productList").options.value = "select";
 
  //This code take the div with cartIcon generate a table and go through products.
-    document.getElementById("cartIcon").onclick = function(){
+    document.getElementById('cartIcon').onclick = function(){
         let cartDisplayTable = `
-        <table> 
+        <table class="table"> 
             <tr>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Price</th>            
         `;
-        for(let prdObj of shoppingCart){
-           prodOjPr += shoppingCart.add(prdObj);
-
-          let prodOjp = cartDisplayTable +`<tr>
+        for(let prdObj of shoppingCart){           
+           cartDisplayTable +=`<tr>
+              <td>${prodOjPr.id}</td>
               <td>${prodOjPr.name}</td>
               <td>${prodOjPr.price}`;       
 
         }
         //This code take the div with shoppingCart and assigned it  a table value.
-        document.getElementById("shoppingCart").innerHTML = prodOjp + `</table>`;
+        document.getElementById("shoppingCart").innerHTML = cartDisplayTable + `</table>`;
     }
 
                

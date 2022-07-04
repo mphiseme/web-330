@@ -28,13 +28,13 @@
                                 <div class="card">
                                     <div class="card-title">Beverages</div>
                                     <div class="card-content" id="beverages">
-                                        <input type="checkbox" id="soda" name="soda">
+                                        <input type="checkbox" id="soda" name="soda" value="3.30">
                                         <label  for="soda">Soda ($3.30)</label><br>
-                                        <input type="checkbox" id="tea" name="tea">
+                                        <input type="checkbox" id="tea" name="tea" value="3.30">
                                         <label  for="tea">Sweet Tea ($3.30)</label><br>
-                                        <input type="checkbox" id="coffee" name="coffee">                                      
+                                        <input type="checkbox" id="coffee" name="coffee" value="2.40">                                      
                                         <label  for="coffee">Iced Coffee ($2.49)</label><br>
-                                        <input type="checkbox" id="water" name="water">                                         
+                                        <input type="checkbox" id="water" name="water" value="2.15">                                         
                                         <label  for="water">Bottled Water ($2.15)</label><br>
                                         
                                     </div>                                    
@@ -44,13 +44,13 @@
                                 <div class="card card2">
                                     <div class="card-title">Appetizers</div>
                                     <div class="card-content" id="appetizer">
-                                        <input type="checkbox" id="nachos" name="nachos" > 
+                                        <input type="checkbox" id="nachos" name="nachos" value="6.60"> 
                                         <label  for="nachos">Nachos ($6.60)</label><br>
-                                        <input type="checkbox" id="chips" name="chips"> 
+                                        <input type="checkbox" id="chips" name="chips" value="5.50"> 
                                         <label  for="chips">Chips and Salsa ($5.50)</label><br>                                         
-                                        <input type="checkbox" id="pretzel" name="pretzel"> 
+                                        <input type="checkbox" id="pretzel" name="pretzel" value="8.80"> 
                                         <label  for="pretzel">Pretzel with Cheese ($8.80)</label><br> 
-                                        <input type="checkbox" id="pickles" name="pickles">
+                                        <input type="checkbox" id="pickles" name="pickles" value="8.25">
                                         <label  for="pickles">Fried Pickles ($8.25)</label><br>                                         
                                     </div>                                
                                  </div>                                
@@ -59,13 +59,13 @@
                                 <div class="card card2">
                                     <div class="card-title">Main Courses</div>
                                     <div class="card-content" id="main-courses">
-                                        <input type="checkbox" id="tacos" name="tacos" >
+                                        <input type="checkbox" id="tacos" name="tacos" value="9.70">
                                         <label  for="tacos">Street Tacos ($9.70)</label><br> 
-                                        <input type="checkbox" id="wings" name="wings">                                    
+                                        <input type="checkbox" id="wings" name="wings" value="12.80">                                    
                                         <label  for="wings">Boneless Wings ($12.80)</label><br> 
-                                        <input type="checkbox" id="burger" name="burger">                                        
+                                        <input type="checkbox" id="burger" name="burger" value="12.65">                                        
                                         <label  for="burger">Cheese Burger with Fries ($12.65)</label><br> 
-                                        <input type="checkbox" id="wrap" name="wrap">
+                                        <input type="checkbox" id="wrap" name="wrap" value="9.65">
                                         <label  for="wrap">Chicken Wrap with Salad ($9.65)</label><br> 
                                        
                                     </div> 
@@ -139,7 +139,7 @@
         const dessertsV = document.getElementById("desserts");
         const dessertsIn = dessertsV.getElementsByTagName("input");
 
-        const newBill = new Bill();
+        let newBill = new Bill();
         
         
         /**
