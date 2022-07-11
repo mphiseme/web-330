@@ -1,0 +1,156 @@
+<!--
+    Title: WhatABook.html
+    Author: Manel Phiseme
+    Date: 7/8/2022
+    Description: This code showcase using XML file to showcase in an HTML application
+    The code display displaying a list of books which you can click on isbn to showcase
+    // books info 
+-->
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>Welcome to the WhatABook, Part 1 App!</title>        
+        <link href="../../site.css" type="text/css" rel="stylesheet">
+        <link href="../../theme.css" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">
+        <script src="../../theme.js"></script> 
+    </head>
+    <body>
+        <div class="assign-container">
+            <h1 class="app-header">Welcome to the WhatABook, Part 1 App!</h1>
+            <div class="assign-content">
+                <div class="card">
+                    <div class="card-title">Book Listing</div>
+                    <div class="card-content" id="bookList">
+                        <div class="form"> 
+                        </div> 
+                    </div>               
+                </div>
+                <a href="../../index.html">Return</a> 
+            </div>            
+        </div>                             
+                   
+     <!--Below is javaScript code-->
+<script>
+   /**
+    * Set the default theme to light if one has not been set in the browsers localStorage
+    */
+   setDefaultTheme();
+     
+    /**
+     * Set the HTML body to the user's selected theme. If one has not been selected, 
+     * set the theme to light-theme
+    */
+
+    //Event handler for DOMContentLoaded    
+    document.addEventListener('DOMContentLoaded', (event)=>{        
+        let fileName = "./books.xml";
+        //fetch XML file        
+        fetch(fileName)
+        //response return as text
+        .then(res => res.text())
+        //Parse XML file for text data
+        .then(data =>{
+            let domParser = new DOMParser();
+            let xmlBooks = domParser.parseFromString(data, "text/xml");
+            //call function loadBooks
+            //pass XML file through it
+            loadBooks(xmlBooks);
+            //Call addIsbnClickEvents to cause the table to response to 
+            //mouse clicks
+            addIsbnClickEvents(); 
+        });
+        
+        //Loadbook function
+        //This function load the books info to html table.
+       function loadBooks(xml){
+                let books = xml.getElementsByTagName("book");                
+                let tableData =`
+                <table id="bookTable" class="table">
+                    <tr>
+                        <th>ISBN</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Pages</th>
+                        <th>Authors</th>
+                    </tr>`;
+                    //Iterates through the list of books
+                for (let book of books) {
+                    //Pull the elements from the XML and assignment them to a variable
+                    let isbn = book.getElementsByTagName("isbn")[0].childNodes[0].nodeValue;
+                    let title = book.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+                    let description = book.getElementsByTagName("description")[0].childNodes[0].nodeValue;
+                    let pages = book.getElementsByTagName("pages")[0].childNodes[0].nodeValue;
+                    let author = book.getElementsByTagName("author")[0].childNodes[0].nodeValue;
+                    
+                    //This create HTML table
+                    tableData += `
+                    <tr>
+                        <td data-value="ISBN"><a href="#" class="isbn-link">${isbn}</td>
+                        <td data-value="Title"><a href="#" class="title-link">${title}</td>
+                        <td data-value="Description"><a href="#" class="description-link">${description}</td>
+                        <td data-value="Pages"><a href="#" class="pages-link">${pages}</td>
+                        <td data-value="Authors"><a ref="#" class="author-link">${author}</td>
+                    </tr> `;
+                    
+                }
+                //assign HTML table to Div with id bookList
+                document.getElementById("bookList").innerHTML = tableData +`</table>`; 
+                console.log(document.getElementById("bookList").innerHTML);
+                 
+              
+            }
+
+            //This function create a list of books information
+            function anchorClicked(e)
+            {
+                e.preventDefault();
+
+                let self = this;
+                let cell = self.parentElement;
+                let row = cell.parentElement;
+                let data = row.querySelectorAll("td");
+
+                //Create list
+                 let bookData = `
+                 <ul style="list-style-type:none; text-align:left; font-size:1rem" >
+                    `;
+                
+                //Iterate through books information
+                for (let field of data)
+                {
+                    //Pull data field value name and value
+                    bookData += `<li><b>${field.dataset.value}:<b>${field.innerHTML}</li>`;
+                    console.log(field);
+                    
+                }
+                //assign list to selectedBook Div
+                document.getElementById("selectedBook").innerHTML = bookData + `</ul>`;
+            }
+            //This is click event function for each ISBN to display the book info
+            //associated to it.
+            function addIsbnClickEvents() {
+                let viewButtons = document.querySelectorAll("#bookTable tbody .isbn-link");
+                for (let i = 0; i < viewButtons.length; i++)
+                {
+                    viewButtons[i].addEventListener("click", anchorClicked);
+                }
+            }
+    })               
+</script> 
+        <div class="assign-container">
+            <div class="assign-content">
+                <div class="card" >
+                    <div class="form-field">
+                        <div class="card-title">Selected Book</div> 
+                        <div class="form">
+                            <div id="selectedBook" class="card-content"></div>                            
+                        </div>
+                        <div id="assign-results" class="card-content assign-results-text"></div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>
