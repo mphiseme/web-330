@@ -1,0 +1,192 @@
+<!--
+    Title: WhatABook2.html
+    Author: Manel Phiseme
+    Date: 7/17/2022
+    Description: This code showcase using APi to display list of books which you can click on isbn to showcase
+    // books info 
+-->
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title> WhatABook, Part 2</title>
+        <link href="../../site.css" type="text/css" rel="stylesheet">
+        <link href="../../theme.css" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">
+        <script src="../../theme.js"></script> 
+    </head>
+    <body>
+        <div class="assign-container">
+            <h1 class="app-header">Welcome to the WhatABook, Part 1 App!</h1>
+            <div class="assign-content">
+                <div class="card">
+                    <div class="card-title">Book Listing</div>
+                    <div class="card-content" id="bookList">
+                        <div class="form"> 
+                        </div> 
+                    </div>               
+                </div>
+                <a href="../../index.html">Return</a> 
+            </div>            
+        </div>                             
+                   
+     <!--Below is javaScript code-->
+<script type="module">
+   /**
+    * Set the default theme to light if one has not been set in the browsers localStorage
+    */
+   setDefaultTheme();
+     
+    /**
+     * Set the HTML body to the user's selected theme. If one has not been selected, 
+     * set the theme to light-theme
+    */
+   
+    //import class HttpClient
+    import {HttpClient} from "./http-client.js";
+
+    let http = new HttpClient();
+    let book ={};
+   
+    //list of book isbns
+    const isbns = [
+        "0345339681",
+        "0261103571",
+        "9780593099322",
+        "9780261102361",
+        "9780261102378",
+        "9780590302715",
+        "9780316769532",
+        "9780743273565",
+        "9780590405959"
+    ];
+
+    //Params key/value pairs
+    const params = {
+        "bibkeys": `ISBN': ${isbns.join(",")}`,
+        "format": "json",
+        "jscmd": "details"
+    };
+
+    //This code pull book information for a table element
+    http.get("https://openlibrary.org/api/books",params).then(res => {
+        console.log(res);
+        document.getElementById('bookList').innerHTML = buildHtmlString(res, "table");
+        addIsbnClickEvents();
+    })
+    .catch(e => {
+        console.log(e);
+    });   
+
+    // This function pull book info
+     function getBook(eventOb) {
+        eventOb.preventDefault();
+        let self = this;
+        let isbn = self.innerText;
+
+        const params = {
+            "bibkeys": `ISBN: ${isbns.join(",")}`,
+            "format": "json",
+            "jscmd": "details"
+        }; 
+    //this code link pull book info and store it in ul list
+     http.get("https://openlibrary.org/api/books", params).then(res =>{
+            document.getElementById("selectedBook").innerHTML = buildHtmlString(res, "ul");
+        })
+        .catch(e =>{
+            console.log(e);
+
+        }) 
+
+     }  
+     
+     //this function create table and generate book info
+     //It also create a list element and generate
+    function buildHtmlString(res, format){
+        let tableString = `<table id="bookTable" class="table">
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Pages</th>
+                <th>Authors</th>
+            </tr>  `;
+           let ulString = "";
+            for (let key in res){
+                ulString += `<ul style="list-style-type:none;">`;
+                    if (res.hasOwnProperty(key))
+                    {
+                        let authors=[];
+                        if(res[key].details.authors)
+                        {
+                            authors = res[key].details.authors.map(function(author)
+                            {
+                                return author.name;
+                            })
+                        }
+                     
+                        let book= {
+                            isbn: res[key].details.isbn_13 ? res[key].details.isbn_13 : res[key].details.isbn_10,
+                            title: res[key].details.title,
+                            description: res[key].details.subtitle ? res[key].details.subtitle: "N/A",
+                            pages: res[key].details.number_of_pages ? res[key].details.number_of_pages: "N/A",
+                            authors: authors.join(",")
+                        }
+                        //generate Ul list and populate it with 
+                        //book info
+                        ulString += `
+                        <li><b>ISBN:</b> ${book.isbn}</li>
+                        <li><b>Title:</b> ${book.title}</li>
+                        <li><b>Description:</b> ${book.description}</li>
+                        <li><b>Pages:</b> ${book.pages}</li>
+                        <li><b>Authors:</b> ${book.authors}</li>
+                        </ul>
+                         `;
+
+                        //generate html table and populate it with 
+                        //book info
+                        tableString += `
+                        <tr>
+                            <td><a href="#" class="isbn-link">${book.isbn}</a></td>
+                            <td>${book.title}</td>
+                            <td>${book.description}</td>
+                            <td>${book.pages}</td>
+                            <td>${book.authors}</td>
+                        <tr>`;  
+                    }
+                    tableString += `</table`;
+                    if (format ==="table"){
+                        return tableString
+                    }{
+                        return ulString
+                    }
+            }          
+
+    }
+        //This is click event function for each ISBN to display the book info
+        //associated to it.
+        function addIsbnClickEvents() {
+            let viewButtons = document.getElementsByClassName("isbn-link");
+            for (let i = 0; i < viewButtons.length; i++)
+            {
+                viewButtons[i].addEventListener("click", getBook);
+            }
+        }
+    
+</script> 
+        <div class="assign-container">
+            <div class="assign-content">
+                <div class="card" >
+                    <div class="form-field">
+                        <div class="card-title">Selected Book</div> 
+                        <div class="form">
+                            <div id="selectedBook" class="card-content"></div>                            
+                        </div>
+                        <div id="assign-results" class="card-content assign-results-text"></div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    </body>
+</html>
